@@ -1,5 +1,6 @@
 package com.example.rajnunes.degakya;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,6 +19,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.backendless.Backendless;
+
 
 public class MainFeedActivity extends AppCompatActivity {
 
@@ -43,7 +48,7 @@ public class MainFeedActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -54,6 +59,8 @@ public class MainFeedActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+//        Backendless.initApp();
+        Backendless.initApp(this,getString(R.string.API_ID),getString(R.string.API_KEY));
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -70,6 +77,7 @@ public class MainFeedActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+//        Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
         getMenuInflater().inflate(R.menu.menu_main_feed, menu);
         return true;
     }
@@ -82,46 +90,17 @@ public class MainFeedActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id){
+            case R.id.action_profile:
+                startActivity(new Intent(this,ProfileActivity.class));
+                return true;
+            case R.id.action_aboutUs:
+                startActivity(new Intent(this,AboutUsActivity.class));
+
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        public PlaceholderFragment() {
-        }
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main_feed, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            return rootView;
-        }
     }
 
     /**
@@ -138,7 +117,20 @@ public class MainFeedActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            switch (position){
+                case 0:
+                    Tab1Feed tab1feed =new Tab1Feed();
+                    return tab1feed;
+                case 1:
+                    Tab2Request tab2Request=new Tab2Request();
+                    return tab2Request;
+                case 2:
+                    Tab3Share tab3Share =new Tab3Share();
+                    return tab3Share;
+                default:
+                    return null;
+            }
+
         }
 
         @Override
@@ -147,15 +139,17 @@ public class MainFeedActivity extends AppCompatActivity {
             return 3;
         }
 
+
+
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "SECTION 1";
+                    return "FEED";
                 case 1:
-                    return "SECTION 2";
+                    return "REQUEST";
                 case 2:
-                    return "SECTION 3";
+                    return "SHARE";
             }
             return null;
         }

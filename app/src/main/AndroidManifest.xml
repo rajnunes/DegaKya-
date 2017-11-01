@@ -3,6 +3,7 @@
     package="com.example.rajnunes.degakya">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -27,6 +28,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.rajnunes.degakya.LoginActivity" />
         </activity>
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".AboutUsActivity"></activity>
     </application>
 
 </manifest>

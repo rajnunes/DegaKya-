@@ -3,4 +3,7 @@
     <string name="title_activity_main_feed">MainFeedActivity</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="API_KEY">C7AF52BF-A972-123E-FF5F-6C92E4256400</string>
+    <string name="API_ID">92D611C2-4552-F140-FFB5-56F9ACBDA900</string>
+    <!--<string name="SECRET_KEY"></string>-->
 </resources>
