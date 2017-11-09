@@ -17,11 +17,10 @@ public class AboutUsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_us);
 
-        bitmap= BitmapFactory.decodeFile("/home/rajnunes/AndroidStudioProjects/DegaKya/app/src/main/res/drawable/testpic.png" +
-                "");
+//        bitmap= BitmapFactory.decodeFile("drawable://"+R.drawable.testpic);
         ImageView imageView = (ImageView)findViewById(R.id.image);
-
-        imageView.setImageBitmap(bitmap);
+//        imageView.setImageBitmap(bitmap);
+        imageView.setImageResource(R.mipmap.shruggedicon);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

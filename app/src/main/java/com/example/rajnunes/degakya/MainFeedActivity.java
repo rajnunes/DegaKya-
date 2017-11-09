@@ -26,25 +26,19 @@ import com.backendless.Backendless;
 
 public class MainFeedActivity extends AppCompatActivity {
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
+    public String profilePic;
+
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
+
     private ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_feed);
+        Intent intent = getIntent();
+//        profilePic = intent.getExtras().getString("profilePic");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -59,9 +53,6 @@ public class MainFeedActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-//        Backendless.initApp();
-        Backendless.initApp(this,getString(R.string.API_ID),getString(R.string.API_KEY));
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,12 +81,14 @@ public class MainFeedActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        switch (id){
+        switch (id) {
             case R.id.action_profile:
-                startActivity(new Intent(this,ProfileActivity.class));
+                Intent intent_profile = new Intent(this, ProfileActivity.class);
+//                intent_profile.putExtra("profilePic",profilePic);
+                startActivity(intent_profile);
                 return true;
             case R.id.action_aboutUs:
-                startActivity(new Intent(this,AboutUsActivity.class));
+                startActivity(new Intent(this, AboutUsActivity.class));
 
                 return true;
         }
@@ -117,15 +110,15 @@ public class MainFeedActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            switch (position){
+            switch (position) {
                 case 0:
-                    Tab1Feed tab1feed =new Tab1Feed();
+                    Tab1Feed tab1feed = new Tab1Feed();
                     return tab1feed;
                 case 1:
-                    Tab2Request tab2Request=new Tab2Request();
+                    Tab2Request tab2Request = new Tab2Request();
                     return tab2Request;
                 case 2:
-                    Tab3Share tab3Share =new Tab3Share();
+                    Tab3Share tab3Share = new Tab3Share();
                     return tab3Share;
                 default:
                     return null;
@@ -138,7 +131,6 @@ public class MainFeedActivity extends AppCompatActivity {
             // Show 3 total pages.
             return 3;
         }
-
 
 
         @Override
